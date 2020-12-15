@@ -7,7 +7,7 @@ import requests
 import time
 
 class CaptchaMe:
-	semilla = ''
+	origenURL = ''
 	tierra = ''
 	marlo = ''
 	fila = ''
@@ -18,8 +18,8 @@ class CaptchaMe:
 	llave = ''
 	mazorca = ''
 
-	def __init__ (self, semilla, nombreImagen):
-		self.semilla = semilla
+	def __init__ (self, origenURL, nombreImagen):
+		self.origenURL = origenURL
 		self.nombreImagen = nombreImagen
 		print ('Iniciar..........ok \n')
 
@@ -56,12 +56,12 @@ class CaptchaMe:
 		tiempoB = time.time()
 		print ('colar.....ok   ', 'Tiempo colar', self.fila, self.columna, tiempoB - tiempoA)
 
-	def desgranar(self):
+	def procesar(self):
 		tiempoA = time.time()
-		print ('semilla', '\n', self.semilla, '\n')
+		print ('origenURL', '\n', self.origenURL, '\n')
 		self.tierra = requests.Session()	#objeto
 		#respuesta / objeto
-		self.mazorca = self.tierra.get(self.semilla)
+		self.mazorca = self.tierra.get(self.origenURL)
 		print ('mazorca Content', '\n', self.mazorca.content, '\n')
 		galleta = self.mazorca.cookies
 		print ('mazorca Galleta', '\n', galleta, '\n')
@@ -80,7 +80,7 @@ class CaptchaMe:
 		self.colar()
 		
 		valores = {'cametu':self.llave}
-		self.mazorca = self.tierra.post(self.semilla, valores)
+		self.mazorca = self.tierra.post(self.origenURL, valores)
 		
 		print ('mazorca Content', '\n', self.mazorca.content, '\n')
 		galleta = self.mazorca.cookies
@@ -90,10 +90,12 @@ class CaptchaMe:
 		print ('llave', self.llave)
 		tiempoB = time.time()
 		
-		print ('desgranar.....ok   ', 'Tiempo desgranar', self.fila, self.columna, tiempoB - tiempoA)
+		print ('procesar.....ok   ', 'Tiempo procesar', self.fila, self.columna, tiempoB - tiempoA)
 
-cm = CaptchaMe('http://challenge01.root-me.org/programmation/ch8/', 'image.png')
-cm.desgranar()
+test = 'http://challenge01.root-me.org/programmation/ch8/';
+cm = CaptchaMe('#',
+	'image.png')
+cm.procesar()
 
 
 
